@@ -28,3 +28,13 @@ target='visitors'
 predictors = col
 def RMSLE(y, pred):
     return mean_squared_error(y, pred)**0.5
+
+
+param_test4 = {'learning_rate':[0.1,0.05,0.03,0.01],'n_estimators':[180,300,900]}
+gsearch4 = GridSearchCV(estimator = GradientBoostingRegressor( n_estimators=90,learning_rate=0.1, max_features=17,max_depth=10, min_samples_leaf = 50, min_samples_split=1000,subsample=0.9, random_state=10), 
+param_grid = param_test4,n_jobs=10,iid=False, cv=5)
+gsearch4.fit(train[predictors],np.log1p(train[target]))
+gsearch4.grid_scores_, gsearch4.best_params_, gsearch4.best_score_
+pred_gs4 = gsearch4.predict(train[predictors])
+print('RMSE GradientBoostingRegressor: ', RMSLE(np.log1p(train['visitors'].values), pred_gs4))
+
