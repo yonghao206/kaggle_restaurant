@@ -1,4 +1,5 @@
 # kaggle_restaurant  
+## 传统手段  
 如何进入kaggle10%，写的很好：  http://dnc1994.com/2016/04/rank-10-percent-in-first-kaggle-competition/  
 git clone https://github.com/wizardforcel/data-science-notebook #如何进入kaggle10%    
 MXNET的对应房价的实现及论坛讨论，学习如何调参： http://zh.gluon.ai/chapter_supervised-learning/kaggle-gluon-kfold.html 参考discussion思路      
@@ -6,6 +7,27 @@ xgboost https://tianchi.aliyun.com/forum/new_articleDetail.html?spm=5176.9876270
 GBDT调参: https://www.analyticsvidhya.com/blog/2016/02/complete-guide-parameter-tuning-gradient-boosting-gbm-python/   
 XGBoost调参：https://www.analyticsvidhya.com/blog/2016/03/complete-guide-parameter-tuning-xgboost-with-codes-python/ （调了半天没有效果一般，不知道为啥，，，）    
 LSTM代码参考：
+
+
+## 竞赛手段
+---
+这个是预测销售额的kaggle，看最后一段，他们[模型的融合有点叼](https://www.kaggle.com/c/favorita-grocery-sales-forecasting/discussion/47582#269355)
+Single Model
+
+    model_1 : 0.506 / 0.511 , 16 lgb models trained for each day source code
+    model_2 : 0.507 / 0.513 , 16 nn models trained for each day source code
+    model_3 : 0.512 / 0.515，1 lgb model for 16 days with almost same features as model_1
+    model_4 : 0.517 / 0.519，1 nn model based on @sjv's code
+
+Ensemble
+
+Stacking doesn't work well this time, our best model is linear blend of 4 single models.
+
+final submission = 0.42*model_1 + 0.28 * model_2 + 0.18 * model_3 + 0.12 * model_4
+
+public = 0.504 , private = 0.509
+
+
 
 GBDT调参结果：
 import glob, re
